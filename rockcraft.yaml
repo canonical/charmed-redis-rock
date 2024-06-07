@@ -22,9 +22,21 @@ services:
     startup: enabled
     summary: Start Redis
     command: "redis-server"
+  redis_exporter:
+    override: replace
+    startup: enabled
+    summary: Start Redis Exporter
+    command: "/bin/redis_exporter"
 
 parts:
   redis:
     plugin: nil
     stage-packages:
       - redis
+  redis_exporter:
+    plugin: go
+    source: https://github.com/canonical/redis_exporter.git
+    source-type: git
+    source-branch: "v1.60.0"
+    build-snaps:
+      - go/1.21/stable
