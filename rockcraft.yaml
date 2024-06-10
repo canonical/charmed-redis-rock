@@ -42,10 +42,7 @@ parts:
       - go/1.21/stable
   non-root-user:
     plugin: nil
-    after: [redis]
     overlay-script: |
       # Create a user in the $CRAFT_OVERLAY chroot
       groupadd -R $CRAFT_OVERLAY -g 1000 redis
       useradd -R $CRAFT_OVERLAY -M -r -g redis -u 1000 redis
-    override-prime: |
-      craftctl default
