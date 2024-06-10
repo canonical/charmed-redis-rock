@@ -29,20 +29,23 @@ services:
     command: "/bin/redis_exporter"
 
 parts:
+  redis-user:
+    plugin: nil
+    overlay-script: |
+      set -x
+      useradd -R $CRAFT_OVERLAY -M -U -r redis
   redis:
     plugin: nil
+    after:
+      - redis-user
     stage-packages:
       - redis
   redis_exporter:
     plugin: go
+    after:
+      - redis
     source: https://github.com/canonical/redis_exporter.git
     source-type: git
     source-branch: "v1.60.0"
     build-snaps:
       - go/1.21/stable
-  non-root-user:
-    plugin: nil
-    overlay-script: |
-      # Create a user in the $CRAFT_OVERLAY chroot
-      groupadd -R $CRAFT_OVERLAY -g 1000 redis
-      useradd -R $CRAFT_OVERLAY -M -r -g redis -u 1000 redis
