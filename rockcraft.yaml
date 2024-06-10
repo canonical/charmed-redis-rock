@@ -28,6 +28,14 @@ services:
     summary: Start Redis Exporter
     command: "/bin/redis_exporter"
 
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [jammy]
+    key-id: 54318FA4052D1E61A6B6F7BB5F4349D6BF53AA0C
+    url: https://packages.redis.io/deb
+    priority: always
+
 parts:
   redis-user:
     plugin: nil
@@ -38,7 +46,7 @@ parts:
     plugin: nil
     after:
       - redis-user
-    stage-snaps:
+    stage-packages:
       - redis
   redis_exporter:
     plugin: go
