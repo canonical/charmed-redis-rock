@@ -38,7 +38,7 @@ parts:
     plugin: nil
     after:
       - redis-user
-    stage-packages:
+    stage-snaps:
       - redis
   redis_exporter:
     plugin: go
