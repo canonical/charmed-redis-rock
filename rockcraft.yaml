@@ -47,3 +47,5 @@ parts:
       # Create a user in the $CRAFT_OVERLAY chroot
       groupadd -R $CRAFT_OVERLAY -g 1000 redis
       useradd -R $CRAFT_OVERLAY -M -r -g redis -u 1000 redis
+    override-prime: |
+      craftctl default
