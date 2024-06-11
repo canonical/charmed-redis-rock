@@ -24,7 +24,7 @@ services:
     command: "redis-server"
   redis_exporter:
     override: replace
-    startup: enabled
+    startup: disabled
     summary: Start Redis Exporter
     command: "/bin/redis_exporter"
 
