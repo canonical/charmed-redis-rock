@@ -19,7 +19,7 @@ platforms:  # The platforms this ROCK should be built on and run on
 services:
   redis:
     override: replace
-    startup: enabled
+    startup: disabled
     summary: Start Redis
     command: "redis-server"
   redis_exporter:
