@@ -40,8 +40,15 @@ parts:
   redis-user:
     plugin: nil
     overlay-script: |
-      set -x
-      useradd -R $CRAFT_OVERLAY -M -U -r redis
+      groupadd -R $CRAFT_OVERLAY -g  584788 redis
+      useradd -R $CRAFT_OVERLAY -M -r -g redis -u 584788 redis
+    override-prime: |
+      craftctl default
+      
+      # Give permission and create the required directories
+      mkdir -p $CRAFT_PRIME/var/lib/redis
+      chmod 0755 $CRAFT_PRIME/var/lib/redis
+      chown -R 584788:584788 $CRAFT_PRIME/var/lib/redis
   redis:
     plugin: nil
     after:
